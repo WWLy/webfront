@@ -1,0 +1,47 @@
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="m-t-none m-b text-center normal-weight" ng-bind="'修改密码'"></h3>
+            <form role="form" name="form" novalidate>
+                <div class="form-group">
+                    <label>旧密码</label>
+                    <input type="password" name="oldpassword" style="display: none;">
+                    <input type="password" ng-model="ctrl.user.oldpwd" name="oldpwd" required class="form-control" ng-keypress="ctrl.confirm(ctrl.user,$event.which === 13 && !(form.$invalid || (ctrl.user.cpwd !== ctrl.user.pwd)))"/>
+                    <div class="customLineHeight " ng-show="form.oldpwd.$dirty && form.oldpwd.$invalid">
+                        <small class="text-danger" ng-show="form.oldpwd.$error.required">请输入密码</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" name="assword" style="display: none;">
+                    <input type="password" ng-model="ctrl.user.pwd" name="pwd" required class="form-control" ng-keypress="ctrl.confirm(ctrl.user,$event.which === 13 && !(form.$invalid || (ctrl.user.cpwd !== ctrl.user.pwd)))"/>
+                    <div class="customLineHeight " ng-show="form.pwd.$dirty && form.pwd.$invalid">
+                        <small class="text-danger" ng-show="form.pwd.$error.required">请输入密码</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>确认密码</label>
+                    <input type="password" name="cpassword" style="display: none;">
+                    <input type="password" ng-model="ctrl.user.cpwd" name="cpwd" required class="form-control" ng-keypress="ctrl.confirm(ctrl.user,$event.which === 13 && !(form.$invalid || (ctrl.user.cpwd !== ctrl.user.pwd)))"/>
+                    <div class="customLineHeight " ng-show="form.cpwd.$dirty">
+                        <small class="text-danger" ng-show="ctrl.user.cpwd !== ctrl.user.pwd">密码不一致请重新输入</small>
+                        <small class="text-danger" ng-show="form.cpwd.$invalid && form.cpwd.$error.required">请输入密码</small>
+                    </div>
+                </div>
+
+                <div class="m-t-lg">
+                    <button class="btn btn-sm btn-default pull-right m-t-n-xs " type="button" ng-click="ctrl.cancel()">
+                        <strong>取消</strong>
+                    </button>
+                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs m-r-md" type="button"
+                            ng-click="ctrl.confirm(ctrl.user)"
+                            ng-disabled="form.$invalid || (ctrl.user.cpwd !== ctrl.user.pwd)">
+                        <strong ng-bind="'保存'"></strong>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

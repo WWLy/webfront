@@ -1,0 +1,101 @@
+<div class="row border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>维修管理</h2>
+    </div>
+</div>
+<div class="wrapper-content wrapper-content-adjusted animated fadeIn">
+    <div class="row">
+        <div class="ibox float-e-margins m-b-sm">
+            <div class="ibox-content clear">
+                <div class="row m-b-sm m-t-sm">
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
+                        <select class="form-control" ng-model="ctrl.status" ng-change="ctrl.search()">
+                            <option value="">维修状态</option>
+                            <!--<option value="damage">报修中</option>-->
+                            <option value="fixed">已修复</option>
+                            <option value="discard">报废</option>
+                        </select>
+                    </div>
+                    <!--<div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">-->
+                        <!--<select class="form-control" ng-model="ctrl.operator" ng-change="ctrl.search()">-->
+                            <!--<option value="">维修人</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
+                        <div class="input-group">
+                            <input type="text" placeholder="编号" class="input-sm form-control"
+                                   ng-keypress="ctrl.search($event.which === 13)"
+                                   ng-model="ctrl.code">
+                            <span class="input-group-btn">
+                                        <button class="ladda-button btn btn-sm btn-primary block full-width m-b"
+                                                ladda="ctrl.pending"
+                                                data-style="zoom-out"
+                                                ng-click="ctrl.search()">查询
+                                        </button></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-list">
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <td style="width: 10%">设备编号</td>
+                            <!--<td style="width: 10%">维修单号</td>-->
+                            <!--<td style="width: 10%">报修人</td>-->
+                            <td style="width: 10%">维修时间</td>
+                            <td style="width: 10%">维修人</td>
+                            <td style="width: 12%">维修原因</td>
+                            <td style="width: 10%">维修描述</td>
+                            <td style="width: 10%">维修结果</td>
+                            <td style="width: 8%">维修花费</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="kv in ctrl.list">
+                            <td class="project-status">
+                                <small ng-bind="kv.code"></small>
+                            </td>
+                            <!--<td class="project-status">-->
+                                <!--<small ng-bind="kv.code"></small>-->
+                            <!--</td>-->
+                            <!--<td class="project-status">-->
+                                <!--<small ng-bind=""></small>-->
+                            <!--</td>-->
+                            <td class="project-status">
+                                <small ng-bind="kv.createOn | date:'yyyy-MM-dd'"></small>
+                            </td>
+                            <td class="project-status">
+                                <small ng-bind="kv.user.name"></small>
+                            </td>
+                            <td class="project-status">
+                                <small ng-repeat="item in kv.parts" ng-bind="item + ($last ? '' : ',')"></small>
+                            </td>
+                            <td class="project-status">
+                                <small ng-bind="kv.remark"></small>
+                            </td>
+                            <td class="project-status">
+                                <small ng-bind="kv.result === 'fixed' ? '已修复' : kv.result === 'discard' ? '已报废' : ''"></small>
+                            </td>
+                            <td class="project-status">
+                                <small ng-bind="kv.result === 'fixed' ? (kv.cost | number:2) : ''"></small>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot ng-if="ctrl.list.length ===0">
+                        <tr>
+                            <td class="text-center" colspan="7">暂无维修记录</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="row" ng-if="ctrl.list.length > 0">
+                        <render-pager render="ctrl.getList(start)" limit="{{ctrl.itemsPerPage}}"
+                                      start="ctrl.currentPage" total="{{ctrl.totalCount}}" restart="ctrl.restart"></render-pager>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

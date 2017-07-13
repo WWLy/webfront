@@ -1,0 +1,154 @@
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="ibox">
+                <div class="ibox-title text-center">
+                    <!--<span class="label label-success pull-right">Monthly</span>-->
+                    <h5>注册总数</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins" ng-bind="ctrl.sum.register ? (ctrl.sum.register | number) :0"></h1>
+
+                    <div class="stat-percent font-bold text-success">
+                        最近七天趋势 &nbsp;<div style="display: inline-block" sparkline ng-if="!!ctrl.registerData" spark-data="ctrl.registerData" spark-options="ctrl.registerOptions"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>押金留存</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins" ng-bind="ctrl.sum.deposit ? (ctrl.sum.deposit | number:2) :0"></h1>
+
+                    <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4  col-md-4  col-sm-4  col-xs-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>骑行总数</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins" ng-bind="ctrl.sum.ride ? (ctrl.sum.ride | number) :0"></h1>
+
+                    <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                </div>
+            </div>
+            <!--<div class="ibox">-->
+                <!--<div class="widget light-grey-bg text-center no-margins no-padding">-->
+                    <!--<div class="p-m">-->
+                        <!--<h3 class="font-bold no-margins">-->
+                            <!--骑行总数-->
+                        <!--</h3>-->
+                        <!--<h1 class="m-xs" ng-bind="ctrl.sum.ride ? (ctrl.sum.ride | number) :0"></h1>-->
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5 col-lg-offset-1 col-md-6 col-sm-6 col-xs-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>投放设备</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins" ng-bind="ctrl.sum.input ? (ctrl.sum.input | number) :0"></h1>
+
+                    <div class="stat-percent font-bold text-danger">98% <i class="fa fa-bolt"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>损失设备</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins" ng-bind="ctrl.sum.loss ? (ctrl.sum.loss | number) :0"></h1>
+
+                    <div class="stat-percent font-bold text-navy">98% <i class="fa fa-bolt"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="ibox float-e-margins m-b-sm">
+            <div class="ibox-content clear">
+                <div class="row m-b-sm m-t-sm">
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
+                        
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-12">
+                        
+                    </div>
+                </div>
+
+                <div class="project-list">
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <td style="width: 10%">编号</td>
+                            <td style="width: 10%">状态</td>
+                            <td style="width: 10%">电量</td>
+                            <td style="width: 10%">锁内编码</td>
+                            <td style="width: 10%">行程状态</td>
+                            <td style="width: 10%">最后上传时间</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="kv in ctrl.list">
+                            <td class="project-status">
+                                <small ng-bind="kv.code"></small>
+                            </td>
+                            <td class="project-status">
+                                <small ng-bind="kv.status"></small>
+                            </td>
+                            <td class="project-status">
+                                <small ng-bind="kv.volume"></small>
+                                <div class="progress progress-mini">
+                                    <div class="progress-bar"
+                                         ng-style="{'width':kv.volume>3.9 ? '100%' : kv.volume > 3.8 ? '75%' : kv.volume > 3.72 ? '50%' : kv.volume > 3.65 ? '25%' : '5%'}"
+                                         ng-class="{'progress-bar-danger':!kv.volume || kv.volume < 3.65,
+                                         'progress-bar-warning':kv.volume<3.72,
+                                         'progress-bar-info':kv.volume<3.8}"></div>
+                                </div>
+                            </td>
+                            <td class="project-status">
+                                <small ng-bind="kv.devNo"></small>
+                            </td>
+                            <td class="project-status">
+                                <small ng-bind="kv.inUse === true ? '开锁' : kv.inUse === false ? '关锁' : '骑行中'"></small>
+                            </td>
+                            <td class="project-status">
+                                <small ng-bind="kv.updateOn.$date | date:'MM-dd HH:mm:ss'"></small>
+                            </td>
+                        </tr>
+                        </tbody>
+                        </tbody>
+                        <tfoot ng-if="ctrl.list.length ===0">
+                        <tr>
+                            <td class="text-center" colspan="6">暂无低电压设备</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="row" ng-if="ctrl.list.length > 0">
+                        <render-pager render="ctrl.getList(start)" limit="{{ctrl.itemsPerPage}}"
+                                      start="ctrl.currentPage" total="{{ctrl.totalCount}}" restart="ctrl.restart"></render-pager>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

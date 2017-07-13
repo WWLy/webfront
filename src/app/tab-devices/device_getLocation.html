@@ -1,0 +1,117 @@
+<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+
+
+<style type="text/css">
+#map_container {
+    width: 100%;
+    height: 400px;
+    margin: 0px;
+}
+.marker {
+    color: #ff6600;
+    padding: 4px 10px;
+    border: 1px solid #fff;
+    white-space: nowrap;
+    font-size: 12px;
+    font-family: "";
+    background-color: #0066ff;
+}
+</style>
+
+<div class="ibox-content profile-content">
+    <div id="map_container"></div>
+</div>
+
+<script type="text/javascript">
+    //创建地图
+    var map = new AMap.Map('map_container', {
+        resizeEnable: true,
+        zoom:11,
+        center: [116.397428, 39.90923]        
+    });
+
+    // var marker = new AMap.Marker({
+    //     map: map,
+    //     zIndex: 9999999,
+    //     position: [116.309428, 39.94223]
+    // });
+
+    AMapUI.loadUI(['overlay/SimpleInfoWindow'], function(SimpleInfoWindow) {
+
+            var marker = new AMap.Marker({
+                map: map,
+                zIndex: 9999999,
+                position: [116.309428, 39.94223]
+            });
+            // marker.setAnimation();
+            // marker.setMap(map);
+            var infoWindow = new SimpleInfoWindow({
+
+                infoTitle: '<strong>这里是标题</strong>',
+                infoBody: '<p class="my-desc"><strong>这里是内容。</strong> <br/> 高德地图 JavaScript API，是由 JavaScript 语言编写的应用程序接口，' +
+                    '它能够帮助您在网站或移动端中构建功能丰富、交互性强的地图应用程序</p>',
+
+                //基点指向marker的头部位置
+                offset: new AMap.Pixel(0, -31)
+            });
+
+            function openInfoWin() {
+                infoWindow.open(map, marker.getPosition());
+            }
+
+            //marker 点击时打开
+            AMap.event.addListener(marker, 'click', function() {
+                openInfoWin();
+            });
+
+            openInfoWin();
+        });
+    
+</script>
+
+
+    <!-- <base href="https://webapi.amap.com/ui/1.0/ui/overlay/SimpleInfoWindow/examples/" /> -->
+
+
+   
+    <!-- <script type="text/javascript">
+        //创建地图
+        var map = new AMap.Map('map_container', {
+            resizeEnable: true,
+            zoom:11,
+            center: [116.397428, 39.90923]        
+        });
+
+        AMapUI.loadUI(['overlay/SimpleInfoWindow'], function(SimpleInfoWindow) {
+
+            var marker = new AMap.Marker({
+                map: map,
+                zIndex: 9999999,
+                position: [116.309428, 39.94223]
+            });
+            // marker.setAnimation();
+            // marker.setMap(map);
+            var infoWindow = new SimpleInfoWindow({
+
+                infoTitle: '<strong>这里是标题</strong>',
+                infoBody: '<p class="my-desc"><strong>这里是内容。</strong> <br/> 高德地图 JavaScript API，是由 JavaScript 语言编写的应用程序接口，' +
+                    '它能够帮助您在网站或移动端中构建功能丰富、交互性强的地图应用程序</p>',
+
+                //基点指向marker的头部位置
+                offset: new AMap.Pixel(0, -31)
+            });
+
+            function openInfoWin() {
+                infoWindow.open(map, marker.getPosition());
+            }
+
+            //marker 点击时打开
+            AMap.event.addListener(marker, 'click', function() {
+                openInfoWin();
+            });
+
+            openInfoWin();
+        });
+    </script> -->
+ 
+    

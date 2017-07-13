@@ -1,0 +1,267 @@
+<div class="row border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>设<span class="invisible">隐</span>置</h2>
+    </div>
+</div>
+<div class="wrapper-content wrapper-content-adjusted">
+    <div class="row">
+        <div class="ibox float-e-margins m-b-sm">
+            <div class="ibox-content clear">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clients-list">
+                        <ul class="nav nav-tabs cus-tabs">
+                            <li ng-class="{'active' : ctrl.tab === 'fee'}">
+                                <a ng-click="ctrl.tabChange('fee')">费用设置</a></li>
+                            <li ng-class="{'active' : ctrl.tab === 'wechatSubscribe'}">
+                                <a ng-click="ctrl.tabChange('wechatSubscribe')">微信设置</a></li>
+                            <li ng-class="{'active' : ctrl.tab === 'chargeAgreement'}">
+                                <a ng-click="ctrl.tabChange('chargeAgreement')">充值协议</a></li>
+                            <li ng-class="{'active' : ctrl.tab === 'depositAgreement'}">
+                                <a ng-click="ctrl.tabChange('depositAgreement')">押金协议</a></li>
+                            <li ng-class="{'active' : ctrl.tab === 'userAgreement'}">
+                                <a ng-click="ctrl.tabChange('userAgreement')">用户协议</a></li>
+                            <li ng-class="{'active' : ctrl.tab === 'part'}">
+                                <a ng-click="ctrl.tabChange('part')">部件设置</a></li>
+                        </ul>
+                        <h5></h5>
+                        <div class="tab-content" ng-switch on="ctrl.tab">
+                            <div class="tab-pane active" ng-switch-when="fee">
+                                <form class="form-horizontal m-t" name="feeForm" novalidate>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label">行程收费</label>
+
+                                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" placeholder="单位元"
+                                                       ng-model="ctrl.companyConfig.perUnit"
+                                                       required>
+
+                                                <div class="input-group-btn" uib-dropdown>
+                                                    <button class="btn btn-white" uib-dropdown-toggle type="button">
+                                                        <span ng-bind="ctrl.companyConfig.timeFrameInMinute === 30 ? '半小时' : '小时'"></span>
+                                                        <span class="caret"></span></button>
+                                                    <ul class="pull-right" uib-dropdown-menu>
+                                                        <li>
+                                                            <a ng-click="ctrl.companyConfig.timeFrameInMinute = 60">小时</a>
+                                                        </li>
+                                                        <li>
+                                                            <a ng-click="ctrl.companyConfig.timeFrameInMinute = 30">半小时</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label">押金</label>
+
+                                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                            <input type="number" class="form-control" placeholder="单位元"
+                                                   ng-model="ctrl.companyConfig.deposit"
+                                                   required>
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+                                            <button class="ladda-button btn btn-primary"
+                                                    ladda="ctrl.pending"
+                                                    ng-click="ctrl.confirm('fee')"
+                                                    data-style="zoom-out"
+                                                    ng-disabled="feeForm.$invalid">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane active" ng-switch-when="wechatSubscribe">
+                                <form class="form-horizontal m-t" novalidate name="wechatForm">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label">标题</label>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <input type="text" name="title" class="form-control"
+                                                   ng-model="ctrl.companyConfig.title"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label">描述</label>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <textarea class="form-control" rows="5" name="desc"
+                                                      ng-model="ctrl.companyConfig.desc"></textarea></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label">首图</label>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="img-upload-box">
+                                                <img ng-src="{{ctrl.companyConfig.image}}"
+                                                     ng-if="ctrl.companyConfig.image">
+                                                <i class="fa fa-upload" ng-if="!ctrl.companyConfig.image"></i>
+                                            </div>
+
+                                            <input class="upload-btn"
+                                                   type="file" id='fileInput' nv-file-select uploader="ctrl.uploader"
+                                                   multiple/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label">原文链接</label>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <input type="text" name="url" class="form-control"
+                                                   ng-model="ctrl.companyConfig.url"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label">关注url</label>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <input type="text" name="addUrl" class="form-control"
+                                                   ng-model="ctrl.companyConfig.addUrl"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label">二维码上传</label>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="img-upload-box">
+                                                <img ng-src="{{ctrl.companyConfig.ercodeUrl}}"
+                                                     ng-if="ctrl.companyConfig.ercodeUrl"/>
+                                                <i class="fa fa-upload" ng-if="!ctrl.companyConfig.ercodeUrl"></i>
+                                            </div>
+
+                                            <input class="upload-btn"
+                                                   type="file" id='fileInput2' nv-file-select uploader="ctrl.uploaderER"
+                                                   multiple/>
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+                                            <button ladda="ctrl.pending" ng-click="ctrl.confirm('wechatSubscribe')"
+                                                    class="ladda-button btn btn-primary" data-style="zoom-out">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane active" ng-switch-when="chargeAgreement">
+                                <form class="form-horizontal m-t" novalidate name="chargeForm">
+                                    <div class="form-group">
+                                        <div class="col-sm-12 text-right">
+                                            <button ladda="ctrl.pending" ng-click="ctrl.confirm('chargeAgreement')"
+                                                    class="ladda-button btn btn-primary" data-style="zoom-out">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label">充值协议</label>
+
+                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                            <div text-angular ng-model="ctrl.companyConfig.chargeAgreement"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+                                            <button ladda="ctrl.pending" ng-click="ctrl.confirm('chargeAgreement')"
+                                                    class="ladda-button btn btn-primary" data-style="zoom-out">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane active" ng-switch-when="depositAgreement">
+                                <form class="form-horizontal m-t" novalidate name="depositForm">
+                                    <div class="form-group">
+                                        <div class="col-sm-12 text-right">
+                                            <button ladda="ctrl.pending" ng-click="ctrl.confirm('depositAgreement')"
+                                                    class="ladda-button btn btn-primary" data-style="zoom-out">保存
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label">押金协议</label>
+
+                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                            <div text-angular ng-model="ctrl.companyConfig.depositAgreement"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+                                            <button ladda="ctrl.pending" ng-click="ctrl.confirm('depositAgreement')"
+                                                    class="ladda-button btn btn-primary" data-style="zoom-out">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane active" ng-switch-when="userAgreement">
+                                <form class="form-horizontal m-t" novalidate name="userForm">
+                                    <div class="form-group">
+                                        <div class="col-sm-12 text-right">
+                                            <button ladda="ctrl.pending" ng-click="ctrl.confirm('userAgreement')"
+                                                    class="ladda-button btn btn-primary" data-style="zoom-out">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-md-2 col-sm-2 col-xs-6 control-label">用户协议</label>
+
+                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                            <div text-angular ng-model="ctrl.companyConfig.userAgreement"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+                                            <button ladda="ctrl.pending" ng-click="ctrl.confirm('userAgreement')"
+                                                    class="ladda-button btn btn-primary" data-style="zoom-out">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane active" ng-switch-when="part">
+                                <div class="row p-w-sm">
+                                    <button class="btn btn-primary pull-right"
+                                            ng-click="ctrl.crudParts()">添加部件
+                                    </button>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-8">
+                                        <ul class="list-group clear-list">
+                                            <li class="list-group-item fist-item">
+                                                <span>部件</span>
+                                                <span class="pull-right">操作</span>
+                                            </li>
+                                            <li class="list-group-item"
+                                                ng-class="{'last-item':$last}"
+                                                ng-repeat="kv in ctrl.companyConfig.maintenanceList">
+                                                <span ng-bind="kv"></span>
+                                                <span class="pull-right">
+                                                <a class="label label-primary text-hover" ng-click="ctrl.crudParts($index)">编辑</a>
+                                                <a class="label label-danger text-hover"
+                                                   ng-click="ctrl.crudParts($index,true)">删除</a></span>
+                                            </li>
+                                            <li class="list-group-item text-center"
+                                                ng-if="ctrl.companyConfig.maintenanceList.length === 0">
+                                                暂无维修原因
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

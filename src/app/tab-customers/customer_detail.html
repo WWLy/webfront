@@ -1,0 +1,104 @@
+<div class="ibox-content profile-content">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 clear">
+            <div class="profile-image">
+                <img alt="image" class="img-circle circle-border m-b-md" ng-src="{{ctrl.info.avatar}}">
+            </div>
+            <div class="profile-info">
+                <h2 class="no-margins">
+                    <span ng-bind="ctrl.info.name"></span>
+                    <span class="label label-danger text-hover outline-none"
+                          ng-if="ctrl.exception"
+                          ng-click="ctrl.dealError()">骑行异常</span>
+
+                    <span class="label"
+                          ng-class="{'label-primary':ctrl.usage && ctrl.usage[0].status === 'openSuccess'}"
+                          ng-if="!ctrl.exception"
+                          ng-bind="ctrl.usage && ctrl.usage[0].status === 'openSuccess' ? '正在骑行' : '暂未骑行'"></span>
+                </h2>
+
+                <p class="m-b-xxs" ng-if="ctrl.info.createOn || ctrl.info.updateOn">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;
+                    <span ng-bind="(ctrl.info.createOn ? ctrl.info.createOn.$date : ctrl.info.updateOn.$date) | date:'yyyy-MM-dd'"></span>
+                </p>
+                <p class="m-b-xxs" ng-if="ctrl.info.idcard">
+                    <i class="fa fa-id-card" aria-hidden="true"></i>
+                    <span ng-bind="ctrl.info.idcard | numater"></span></p>
+                <p class="m-b-xxs" ng-if="ctrl.info.phone">
+                    <i class="fa fa-phone-square" aria-hidden="true"></i>&nbsp;
+                    <span ng-bind="ctrl.info.phone"></span></p>
+                <p ng-if="ctrl.info.address">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span ng-bind="ctrl.info.address"></span></p>
+            </div>
+            <ul class="list-group clear-list m-t-xl">
+                <li class="list-group-item fist-item list-table-3-item">
+                    <span>行程时间</span>
+                    <span>日期</span>
+                    <span>费用</span>
+                </li>
+                <li class="list-group-item list-table-3-item"
+                    ng-class="{'last-item':$last}"
+                    ng-repeat="kv in ctrl.usage">
+                    <span><small ng-bind="kv.duration | timmer"></small></span>
+                    <span>
+                        <small ng-bind="(kv.eventOn | date:'yyyy-MM-dd HH:mm')"></small>
+                        <!--<i class="fa fa-ellipsis-v"></i>-->
+                        <small ng-bind="(kv.eventEnd ? (kv.eventEnd | date:'yyyy-MM-dd HH:mm') : '---')"></small>
+                    </span>
+                    <span><small ng-bind="kv.amount ? (kv.amount/100 | number : 2) : 0"></small></span>
+                </li>
+                <li class="list-group-item text-center"
+                    ng-if="ctrl.usage.length === 0">
+                    暂无骑行记录
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <p>余额: <span ng-bind="ctrl.info.account.balance ? (ctrl.info.account.balance /100 | number:2) : 0"></span>
+            </p>
+            <p>押金: <span class="label" ng-bind="ctrl.info.account.deposit ? (ctrl.info.account.deposit /100 | number:2) : 0"></span></p>
+            <!--<p>押金状态: <span class="label"-->
+                           <!--ng-class="{'label-danger':ctrl.info.isRefund === false,'label-primary':ctrl.info.isRefund === undefined}"-->
+                           <!--ng-bind="ctrl.info.isRefund === true ? '已退款' : ctrl.info.isRefund === false ? '申请退款' : '正常'"></span>-->
+            <!--</p>-->
+            <!--<div class="user-button" ng-if="ctrl.info.isRefund === false">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-md-6 col-sm-6 col-xs-6">-->
+                        <!--<button type="button" class="btn btn-primary btn-sm btn-block"-->
+                                <!--ng-click="ctrl.confirm(true)">-->
+                            <!--<i class="fa fa-check" aria-hidden="true"></i>-->
+                            <!--同意申请-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6 col-sm-6 col-xs-6">-->
+                        <!--<button type="button" class="btn btn-default btn-sm btn-block"-->
+                                <!--ng-click="ctrl.confirm(false)">-->
+                            <!--<i class="fa fa-close" aria-hidden="true"></i>-->
+                            <!--驳回申请-->
+                        <!--</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <ul class="list-group clear-list">
+                <li class="list-group-item fist-item list-table-3-item">
+                    <span>日期</span>
+                    <span>操作</span>
+                    <span>金额</span>
+                </li>
+                <li class="list-group-item list-table-3-item"
+                    ng-class="{'last-item':$last}"
+                    ng-repeat="kv in ctrl.list | filter:ctrl.typeFilter()">
+                    <span ng-bind="kv.createOn | date:'yyyy-MM-dd'"></span>
+                    <span ng-bind="kv.result + ' ' + kv.kind"></span>
+                    <span ng-bind="kv.amount ? (kv.amount/100 | number : 2) : 0"></span>
+                </li>
+                <li class="list-group-item text-center"
+                    ng-if="ctrl.list.length === 0">
+                    暂无明细
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

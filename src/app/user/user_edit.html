@@ -1,0 +1,60 @@
+<div class="modal-body">
+    <div class="row">
+        <!--<div class="col-sm-12"><h3 class="m-t-none m-b text-center normal-weight" ng-bind="ctrl.isEdit ? '编辑' : '新增'"></h3>-->
+            <form role="form" name="form">
+                <div class="row">
+                    <div class="col">
+                        <div class="user-image">
+                            <img alt="image" class="img-circle circle-border m-b-md" ng-src="{{ctrl.member.image}}">
+                            <input class="upload-btn"
+                                   type="file" id='fileInput' nv-file-select uploader="ctrl.uploader"
+                                   multiple/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group"><label ng-bind="'登录名'"></label>
+                    <input type="text" name="name" auto-focus ng-model="ctrl.member.name" required class="form-control">
+                    <div class="customLineHeight" ng-show="form.name.$dirty && form.name.$invalid">
+                        <small class="text-danger" ng-show="form.name.$error.required">请输入登录名</small>
+                    </div>
+                </div>
+                <div class="form-group"><label ng-bind="'姓名'"></label>
+                    <input type="text" name="profileName" ng-model="ctrl.member.profileName" required
+                           class="form-control">
+                    <div class="customLineHeight" ng-show="form.profileName.$dirty && form.profileName.$invalid">
+                        <small class="text-danger" ng-show="form.profileName.$error.required">请输入姓名</small>
+                    </div>
+                </div>
+
+                <div class="form-group"><label>电话</label>
+                    <input type="text" ng-model="ctrl.member.phone" name="phone" required ng-pattern="/^\d*$/"
+                           class="form-control">
+                    <div class="customLineHeight " ng-show="form.phone.$dirty && form.phone.$invalid">
+                        <small class="text-danger" ng-show="form.phone.$error.required">请输入电话</small>
+                        <small class="text-danger" ng-show="form.phone.$error.pattern">电话号码格式错误</small>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="!ctrl.isEdit"><label>密码</label>
+                    <input type="" name="" style="display: none;">
+                    <input type="password" ng-model="ctrl.member.pwd" name="pwd" required class="form-control">
+                    <div class="customLineHeight " ng-show="form.pwd.$dirty && form.pwd.$invalid">
+                        <small class="text-danger" ng-show="form.pwd.$error.required">请输入密码</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="ladda-button btn  btn-primary pull-right"
+                            ladda="ctrl.pending"
+                            ng-click="ctrl.confirm()"
+                            ng-disabled="form.$invalid"
+                            data-style="zoom-out">确认
+                    </button>
+                    <button class="btn  btn-default pull-right  m-r" type="button"
+                            ng-click="ctrl.cancel()"><strong>取消</strong></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

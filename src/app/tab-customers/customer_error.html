@@ -1,0 +1,36 @@
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12"><h3 class="m-t-none m-b text-center normal-weight" ng-bind="'异常骑行'"></h3>
+            <form class="form-horizontal m-t" novalidate name="wechatForm">
+                <div class="form-group p-w-sm">
+                    <img class="outline-none" ng-click="ctrl.viewImg()" ng-if="ctrl.url.length > 0" ng-src="{{ctrl.url[0] + '?imageView2/1/w/100/h/100'}}"/>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-4 ">故障描述</label>
+
+                    <div class="col-xs-12">
+                        <span ng-bind="ctrl.exception.remark"></span>
+                    </div>
+                </div>
+
+                <!--<div class="form-group">-->
+                    <!--<label class="col-xs-4 ">骑行收费</label>-->
+
+                    <!--<div class="col-xs-12">-->
+                        <!--<input type="number" name="expense" class="form-control"-->
+                               <!--ng-model="ctrl.expense"></div>-->
+                <!--</div>-->
+
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button ladda="ctrl.pending" ng-click="ctrl.confirm()"
+                                class="ladda-button btn btn-primary" data-style="zoom-out">一键处理
+                        </button>
+                        <button class="btn btn-m btn-default m-l" ng-click="ctrl.cancel()" type="button">取  消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

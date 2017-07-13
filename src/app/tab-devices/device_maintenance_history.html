@@ -1,0 +1,61 @@
+<div class="ibox-content profile-content">
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <td style="width: 6%">编号</td>
+                <td style="width: 10%">报修人</td>
+                <td style="width: 10%">报修原因</td>
+                <td style="width: 10%">报修描述</td>
+                <td style="width: 10%">报修时间</td>
+                <td style="width: 10%">维修人</td>
+                <td style="width: 10%">维修时间</td>
+                <td style="width: 10%">维修描述</td>
+                <td style="width: 10%">维修结果</td>
+                <td style="width: 10%">维修花费</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="kv in ctrl.list">
+                <td class="project-status">
+                    <small ng-bind="$index+1"></small>
+                </td>
+                <td class="project-status">
+                    <small ng-bind="kv.customer.name"></small>
+                </td>
+                <td class="project-status">
+                    <p class="no-margins font-small" ng-repeat="item in kv.kinds" ng-bind="item"></p>
+                </td>
+                <td class="project-status">
+                    <small ng-bind="kv.remark"></small>
+                </td>
+                <td class="project-status">
+                    <small ng-bind="kv.createOn | date: 'yyyy-MM-dd'"></small>
+                </td>
+                <td class="project-status">
+                    <small ng-bind="kv.user.name"></small>
+                </td>
+                <td class="project-status">
+                    <small ng-bind="kv.updateOn | date: 'yyyy-MM-dd'"></small>
+                </td>
+                <td class="project-status">
+                    <small ng-bind="kv.fixRemark"></small>
+                </td>
+                <td class="project-status">
+                    <small ng-bind="kv.result === 'fixed'  ? '修复' : kv.result === 'discard' ? '报废' : ''"></small>
+                </td>
+                <td class="project-status">
+                    <small ng-bind="kv.result === 'fixed' ? (kv.cost | number: 2) : ''"></small>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot ng-if="ctrl.list.length === 0">
+            <tr>
+                <td class="text-center" colspan="9">
+                    暂无报修记录
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

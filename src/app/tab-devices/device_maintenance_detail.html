@@ -1,0 +1,74 @@
+<div class="ibox-content profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-2 col-sm-2 col-xs-12 control-label">维修结果</label>
+
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        <select class="form-control" ng-model="ctrl.info.result">
+                            <option value="discard">报废</option>
+                            <option value="fixed">修复</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-sm-2 col-xs-12 control-label">维修人</label>
+
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        <select class="form-control" ng-model="ctrl.info.operator"
+                                ng-options="kv.profile.name for kv in ctrl.operatorList">
+                            <options value="">请选择</options>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-sm-2 col-xs-12 control-label">维修原因</label>
+
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        <div ng-repeat="kv in ctrl.maintenance">
+                            <label> <input icheck type="checkbox" ng-model="kv.checked">
+                                {{kv.key}} </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-sm-2 col-xs-12 control-label">维修描述</label>
+
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        <textarea class="form-control" rows="3"
+                                  ng-model="ctrl.info.remark"></textarea></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-sm-2 col-xs-12 control-label">维修花费</label>
+
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        <input type="number" name="cost" class="form-control"
+                               ng-model="ctrl.info.cost">
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-2 col-sm-2 col-xs-12 control-label">维修时间</label>-->
+
+                    <!--<div class="col-md-10 col-sm-10 col-xs-12">-->
+                        <!--<datepicker button-prev="<i class='fa fa-arrow-left' style='font-style:normal'></i>"-->
+                                    <!--button-next="<i class='fa fa-arrow-right' style='font-style:normal'></i>"-->
+                                    <!--date-format="yyyy-MM-dd" selector="form-control">-->
+                            <!--<input name="startEnd" ng-model="ctrl.info.updateOn" readonly type="text" class="form-control">-->
+                        <!--</datepicker>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <div class="col-md-10 col-sm-10 col-xs-12 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+                        <button ladda="ctrl.pending" ng-click="ctrl.confirm()"
+                                class="ladda-button btn btn-primary" data-style="zoom-out">提交
+                        </button>
+                        <button class="btn btn-m btn-default m-l" ng-click="ctrl.cancel()" type="button">取  消</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>

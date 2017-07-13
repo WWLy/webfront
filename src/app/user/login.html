@@ -1,0 +1,35 @@
+<div class="loginColumns animated fadeInDown">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-19 col-xs-12">
+            <div class="ibox-content">
+                <form class="m-t" role="form" novalidate>
+                    <div class="form-group">
+                        <span class="input-icon" ng-class="{'isFocus':ctrl.focusIcon.account}"><i class="fa fa-user"></i></span>
+                        <input type="text" class="form-control" placeholder="请输入账号"
+                               ng-model="ctrl.account"
+                               ng-focus="ctrl.setFocus('account')"
+                               ng-blur="ctrl.setFocus('blur')"
+                               required>
+
+                    </div>
+                    <div class="form-group">
+                        <span class="input-icon" ng-class="{'isFocus':ctrl.focusIcon.password}"><i class="fa fa-lock"></i></span>
+                        <input type="password" class="form-control" placeholder="请输入密码"
+                               ng-model="ctrl.password"
+                               ng-focus="ctrl.setFocus('password')"
+                               ng-blur="ctrl.setFocus('blur')"
+                               required>
+                    </div>
+                    <p class="text-right">
+                        <small class="outline-none text-navy text-hover" ng-click="ctrl.forgetPassword()">忘记密码?</small>
+                    </p>
+                    <button class="ladda-button btn btn-primary block full-width m-b"
+                            ladda="ctrl.pending"
+                            data-style="zoom-out"
+                            ng-click="ctrl.login()">登录
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

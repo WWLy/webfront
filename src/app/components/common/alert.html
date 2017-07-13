@@ -1,0 +1,17 @@
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="m-t-none m-b normal-weight" ng-bind="ctrl.info"></h3>
+            <form role="form">
+                <div>
+                    <button class="btn btn-m btn-primary pull-left m-t" ng-click="ctrl.cancel()" type="button" ng-bind="ctrl.cancelTxt"></button>
+                    <button class="ladda-button btn btn-danger pull-right m-t"
+                            ladda="ctrl.pending"
+                            ng-click="ctrl.confirm()"
+                            ng-bind="ctrl.confirmTxt"
+                            data-style="zoom-out"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
